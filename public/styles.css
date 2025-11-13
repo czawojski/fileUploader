@@ -1,0 +1,116 @@
+h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+}
+
+/* form */
+
+.formarea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: #333;
+  width: 100vw;
+  height: 50vh;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li .nav {
+  float: left;
+}
+
+li a .nav {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover .nav {
+  background-color: #111;
+}
+
+/* card */
+
+.detailbackground {
+    background-color: rgb(245, 242, 242);
+}
+
+/* indexcontainer is main page with multiple messages */
+.indexcontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100vw;
+    margin: 10px;
+    font-size: 18px;
+}
+
+.indexcard {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+  width: 25vw;
+  margin: 15px;
+  background-color: white;
+}
+
+form > .btn {
+  margin-left: 150px;
+  margin-bottom: 10px;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding: 5px; */
+}
+
+/* styles for details view */
+.cardcontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 50vh;
+    font-size: 18px;
+}
+
+.card {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+  height: 25vh;
+  width: 25vw;
+  margin: 20px;
+  background-color: white;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+/* Add some padding inside the card container */
+.msgcontainer {
+  padding: 2px 16px;
+}
+
+.namecontainer {
+  padding: 2px 16px;
+}
