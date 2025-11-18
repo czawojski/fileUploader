@@ -34,9 +34,11 @@ app.use(session({ secret: "cats", resave: false, saveUninitialized: false }));
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
-// tested
+// testing 11-17-25
 app.get("/", async (req, res) => {
-  res.send('hello world');
+  const users = await prisma.user.findMany();
+  // console.log(users);
+  res.render("index", {users: users, links: links})
 });
 
 // testing 11-13-25
