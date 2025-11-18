@@ -38,6 +38,7 @@ app.use(express.urlencoded({ extended: false }));
 app.get("/", async (req, res) => {
   const users = await prisma.user.findMany();
   // console.log(users);
+
   res.render("index", {users: users, links: links})
 });
 
@@ -46,8 +47,12 @@ app.get("/sign-up", (req, res) => res.render("sign-up-form", {links: links}));
 
 app.post("/sign-up", async (req, res, next) => {
  try {
-  const hashedPassword = await bcrypt.hash(req.body.password, 10);
-  await pool.query("INSERT INTO users (fullname, username, password, isadmin) VALUES ($1, $2, $3, $4)", [req.body.fullname, req.body.username, hashedPassword, req.body.isadmin]);
+  const user = await prisma.user.create({
+  data: {
+    email: req.body.email,
+    name: req.body.name,
+  },
+})
   res.redirect("/");
  } catch (error) {
     console.error(error);
