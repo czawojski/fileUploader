@@ -5,7 +5,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
-//   output   = "../generated/prisma"
+  //   output   = "../generated/prisma"
 }
 
 model Profile {
@@ -16,8 +16,9 @@ model Profile {
 }
 
 model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String?
-  profile Profile?
+  id       Int      @id @default(autoincrement())
+  email    String   @unique
+  name     String?
+  profile  Profile?
+  password String
 }

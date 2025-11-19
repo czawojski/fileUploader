@@ -38,7 +38,6 @@ app.use(express.urlencoded({ extended: false }));
 app.get("/", async (req, res) => {
   const users = await prisma.user.findMany();
   // console.log(users);
-
   res.render("index", {users: users, links: links})
 });
 
@@ -47,10 +46,12 @@ app.get("/sign-up", (req, res) => res.render("sign-up-form", {links: links}));
 
 app.post("/sign-up", async (req, res, next) => {
  try {
+  const hashedPassword = await bcrypt.hash(req.body.password, 10);
   const user = await prisma.user.create({
   data: {
     email: req.body.email,
     name: req.body.name,
+    password: hashedPassword,
   },
 })
   res.redirect("/");
