@@ -38,8 +38,27 @@ app.use(express.urlencoded({ extended: false }));
 app.get("/", async (req, res) => {
   const users = await prisma.user.findMany();
   // console.log(users);
-  res.render("index", {users: users, links: links})
+  res.render("index", {user: req.user, users: users, links: links})
 });
+
+// testing 11-19-25
+app.get("/log-out", (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+});
+
+// testing 11-19-25
+app.post(
+  "/log-in",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/"
+  })
+);
 
 // testing 11-13-25
 app.get("/sign-up", (req, res) => res.render("sign-up-form", {links: links}));
@@ -59,6 +78,50 @@ app.post("/sign-up", async (req, res, next) => {
     console.error(error);
     next(error);
    }
+});
+
+// testing 11-19-25
+passport.use(
+  new LocalStrategy(async (email, password, done) => {
+    try {
+      const user = await prisma.user.findFirst({
+        where: {
+          email: email,
+        },
+      })      
+
+      if (!user) {
+        return done(null, false, { message: "Incorrect username" });
+      }
+      
+      const match = await bcrypt.compare(password, user.password);
+      
+      if (!match) {
+      // passwords do not match!
+      return done(null, false, { message: "Incorrect password" })
+      }
+      return done(null, user);
+    } catch(err) {
+      return done(err);
+    }
+  })
+);
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await prisma.user.findFirst({
+      where: {
+        id: id,
+      },
+    }) 
+    done(null, user);
+  } catch(err) {
+    done(err);
+  }
 });
 
 
